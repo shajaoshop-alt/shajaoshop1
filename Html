@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সাজাও শপ — সেরা দামে সেরা পণ্য</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #C8102E;
+      --primary-dark: #8B0000;
+      --gold: #D4A017;
+      --gold-light: #F5D76E;
+      --bg: #FAFAF8;
+      --surface: #FFFFFF;
+      --surface2: #F4F1EC;
+      --text: #1A1208;
+      --text-muted: #6B6055;
+      --border: #E8E0D4;
+      --success: #2E7D32;
+      --shadow: 0 4px 24px rgba(26,18,8,0.08);
+      --shadow-lg: 0 12px 48px rgba(26,18,8,0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--primary-dark);
+      color: #fff;
+      font-size: 0.78rem;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .topbar span { display: flex; align-items: center; gap: 6px; }
+    .topbar a { color: var(--gold-light); text-decoration: none; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-main {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .logo-sub {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .search-bar {
+      display: flex;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .search-bar:focus-within { border-color: var(--primary); }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: transparent;
+      color: var(--text);
+    }
+    .search-bar button {
+      background: var(--primary);
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover { background: var(--primary-dark); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .cart-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .cart-count {
+      background: var(--gold);
+      color: var(--text);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-link {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .admin-link:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--text);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      padding: 12px 18px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-item:hover, .nav-item.active {
+      color: white;
+      border-bottom-color: var(--gold);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #E84560 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 60px 20px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: white;
+      margin-bottom: 20px;
+      animation: fadeDown 0.6s ease;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      animation: fadeDown 0.6s ease 0.1s both;
+    }
+    .hero h1 span { color: var(--gold-light); }
+    .hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      margin-bottom: 30px;
+      animation: fadeDown 0.6s ease 0.2s both;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--primary);
+      border: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: all 0.25s;
+      animation: fadeDown 0.6s ease 0.3s both;
+      text-decoration: none;
+    }
+    .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeDown 0.6s ease 0.4s both;
+    }
+    .stat { text-align: center; color: white; }
+    .stat-num {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold-light);
+      display: block;
+    }
+    .stat-label { font-size: 0.75rem; opacity: 0.8; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--gold);
+      padding: 14px 20px;
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* ── SECTION ── */
+    section { padding: 56px 20px; }
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .section-title {
+      font-family: 'Noto Serif Bengali', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text);
+      position: relative;
+      padding-bottom: 10px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 48px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .see-all {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--primary);
+      border-radius: 20px;
+      padding: 6px 16px;
+      white-space: nowrap;
+      transition: all 0.2s;
+      background: none;
+      font-family: inherit;
+    }
+    .see-all:hover { background: var(--primary); color: white; }
+
+    /* ── CATEGORIES ── */
+    .cat-bg { background: var(--surface2); }
+    .categories-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 14px;
+    }
+    .cat-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .cat-card:hover, .cat-card.active {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .cat-icon { font-size: 2rem; margin-bottom: 10px; }
+    .cat-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .cat-count { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── PRODUCTS ── */
+    .products-controls {
+      max-width: 1200px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .sort-select {
+      padding: 8px 16px;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: var(--text);
+      background: var(--surface);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sort-select:focus { border-color: var(--primary); }
+
+    .products-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .wishlist-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+    .wishlist-btn:hover { transform: scale(1.2); }
+
+    .product-info { padding: 14px; }
+    .product-category { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .product-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; line-height: 1.4; }
+    .product-prices { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .price-current { font-family: 'Noto Serif Bengali', serif; font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+    .price-old { font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through; }
+    .price-save { font-size: 0.7rem; color: var(--success); font-weight: 600; background: #E8F5E9; padding: 2px 6px; border-radius: 10px; }
+    .add-to-cart {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .add-to-cart:hover { background: var(--primary-dark); }
+    .add-to-cart:active { transform: scale(0.97); }
+
+    /* ── CART SIDEBAR ── */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(400px, 100vw);
+      background: var(--surface);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -8px 0 32px rgba(0,0,0,0.15);
+    }
+    .cart-sidebar.open { transform: translateX(0); }
+    .cart-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cart-header h2 { font-family: 'Noto Serif Bengali', serif; font-size: 1.2rem; }
+    .close-cart {
+      background: var(--surface2);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .close-cart:hover { background: var(--border); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .cart-empty { text-align: center; color: var(--text-muted); padding: 60px 20px; font-size: 0.9rem; }
+    .cart-empty .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: var(--surface2);
+      border-radius: 12px;
+      align-items: center;
+    }
+    .cart-item-img { font-size: 2rem; width: 52px; height: 52px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cart-item-price { font-size: 0.9rem; color: var(--primary); font-weight: 700; margin-top: 3px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+    .qty-btn { width: 26px; height: 26px; border: 1.5px solid var(--border); background: white; border-radius: 6px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .qty-num { font-size: 0.85rem; font-weight: 600; min-width: 20px; text-align: center; }
+    .remove-item { background: none; border: none; color: #ccc; cursor: pointer; font-size: 1rem; padding: 4px; transition: color 0.2s; }
+    .remove-item:hover { color: var(--primary); }
+    .cart-footer { padding: 20px; border-top: 1px solid var(--border); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .checkout-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .checkout-btn:hover { background: var(--primary-dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.75);
+      padding: 48px 20px 24px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 32px;
+    }
+    .footer-brand .logo-main { color: white; }
+    .footer-brand p { font-size: 0.85rem; margin-top: 10px; line-height: 1.7; }
+    .footer-col h4 { color: white; font-size: 0.9rem; margin-bottom: 14px; font-weight: 600; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.6); font-size: 0.82rem; margin-bottom: 8px; text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1A1208;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 300;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .header-inner { grid-template-columns: auto 1fr; }
+      .header-actions { grid-column: 1/-1; justify-content: flex-end; }
+      .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+      .hero-stats { gap: 24px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .categories-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>📦 ৳৫০০+ অর্ডারে ফ্রি ডেলিভারি</span>
+  <span>📞 <a href="tel:01700000000">01700-000000</a></span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-main">সাজাও শপ</span>
+      <span class="logo-sub">Best Price • Best Products</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন..." />
+      <button onclick="handleSearch()">🔍</button>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="admin-link" onclick="showAdmin()">⚙️ Admin</a>
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 কার্ট <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-item active" onclick="filterProducts('সব')">সব পণ্য</div>
+    <div class="nav-item" onclick="filterProducts('পোশাক')">👗 পোশাক</div>
+    <div class="nav-item" onclick="filterProducts('ইলেকট্রনিক্স')">📱 ইলেকট্রনিক্স</div>
+    <div class="nav-item" onclick="filterProducts('বিউটি')">💄 বিউটি</div>
+    <div class="nav-item" onclick="filterProducts('হোম')">🏠 হোম</div>
+    <div class="nav-item" onclick="filterProducts('খাবার')">🍱 খাবার</div>
+    <div class="nav-item" onclick=
